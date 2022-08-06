@@ -1,5 +1,6 @@
-import { Column, Entity } from 'typeorm';
+import { Column, Entity, OneToMany } from 'typeorm';
 import { Base } from './base.entity';
+import { Recipe } from './recipe.entity';
 
 export enum UserRole {
   Admin = 'Admin',
@@ -26,4 +27,7 @@ export class User extends Base {
 
   @Column({ name: 'role', type: 'enum', enum: UserRole })
   role: UserRole;
+
+  @OneToMany(() => Recipe, (recipe) => recipe.user)
+  recipes: Recipe[];
 }
