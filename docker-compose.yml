@@ -27,7 +27,7 @@ services:
     volumes:
       - ./backend:/app/backend
     environment:
-      NODE_ENV: development
+      NODE_ENV: prod
       REDIS_HOST: redis
       DB_HOST: db
       DB_USER: test
