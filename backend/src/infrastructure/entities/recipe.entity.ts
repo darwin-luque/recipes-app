@@ -1,8 +1,9 @@
-import { Column, Entity, ManyToOne } from 'typeorm';
+import { Column, Entity, ManyToOne, OneToMany } from 'typeorm';
 import { Base } from './base.entity';
+import { IngredientRecipe } from './ingredient-recipe.entity';
 import { User } from './user.entity';
 
-@Entity()
+@Entity({ name: 'recipe' })
 export class Recipe extends Base {
   @Column({ name: 'name' })
   name: string;
@@ -44,4 +45,10 @@ export class Recipe extends Base {
 
   @ManyToOne(() => User, (user) => user.recipes)
   user: User;
+
+  @OneToMany(
+    () => IngredientRecipe,
+    (ingredientRecipe) => ingredientRecipe.recipe,
+  )
+  ingredient: IngredientRecipe[];
 }
