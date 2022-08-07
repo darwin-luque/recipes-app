@@ -1,6 +1,8 @@
 import { Column, Entity, OneToMany } from 'typeorm';
 import { Base } from './base.entity';
 import { Recipe } from './recipe.entity';
+import { Reply } from './reply.entity';
+import { Review } from './review.entity';
 
 export enum UserRole {
   Admin = 'Admin',
@@ -30,4 +32,10 @@ export class User extends Base {
 
   @OneToMany(() => Recipe, (recipe) => recipe.user)
   recipes: Recipe[];
+
+  @OneToMany(() => Review, (review) => review.user)
+  reviews: Review[];
+
+  @OneToMany(() => Reply, (reply) => reply.user)
+  replies: Review[];
 }
