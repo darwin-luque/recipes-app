@@ -6,16 +6,16 @@ import {
   InferSubjects,
   MongoQuery,
 } from '@casl/ability';
-import { IngredientRecipe } from '../infrastructure/entities/ingredient-recipe.entity';
-import { IngredientType } from '../infrastructure/entities/ingredient-type.entity';
-import { Ingredient } from '../infrastructure/entities/ingredient.entity';
-import { User, UserRole } from '../infrastructure/entities/user.entity';
-import { Category } from '../infrastructure/entities/category.entity';
-import { Recipe } from '../infrastructure/entities/recipe.entity';
-import { Review } from '../infrastructure/entities/review.entity';
-import { Reply } from '../infrastructure/entities/reply.entity';
-import { Step } from '../infrastructure/entities/step.entity';
-import { CaslAction } from '../utils/constants/casl-action.enum';
+import { IngredientRecipe } from '../../infrastructure/entities/ingredient-recipe.entity';
+import { IngredientType } from '../../infrastructure/entities/ingredient-type.entity';
+import { Ingredient } from '../../infrastructure/entities/ingredient.entity';
+import { User, UserRole } from '../../infrastructure/entities/user.entity';
+import { Category } from '../../infrastructure/entities/category.entity';
+import { Recipe } from '../../infrastructure/entities/recipe.entity';
+import { Review } from '../../infrastructure/entities/review.entity';
+import { Reply } from '../../infrastructure/entities/reply.entity';
+import { Step } from '../../infrastructure/entities/step.entity';
+import { CaslAction } from '../../utils/constants/casl-action.enum';
 
 type Subjects =
   | InferSubjects<
