@@ -1,4 +1,5 @@
-import { UserRole } from './src/infrastructure/entities/user.entity';
+import type { UserRole } from './src/infrastructure/entities/user.entity';
+import type { Algorithm } from 'jsonwebtoken';
 
 declare global {
   interface TokenPayload {
@@ -7,6 +8,7 @@ declare global {
     aud: string;
     exp: number;
     iat: number;
+    alg: Algorithm;
     role: UserRole;
     name: string;
     email: string;
