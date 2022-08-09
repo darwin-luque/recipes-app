@@ -46,7 +46,7 @@ export class Recipe extends Base {
   @Column({ name: 'servings', nullable: true })
   servings: number;
 
-  @ManyToOne(() => User, (user) => user.recipes)
+  @ManyToOne(() => User, (user) => user.recipes, { eager: true })
   user: User;
 
   @OneToMany(
@@ -63,4 +63,8 @@ export class Recipe extends Base {
 
   @OneToMany(() => Step, (step) => step.recipe)
   steps: Step[];
+
+  get userId(): string {
+    return this.user?.id;
+  }
 }

@@ -12,4 +12,8 @@ export class Step extends Base {
 
   @ManyToOne(() => Recipe, (recipe) => recipe.steps)
   recipe: Recipe;
+
+  get userId(): string {
+    return this.recipe.userId;
+  }
 }

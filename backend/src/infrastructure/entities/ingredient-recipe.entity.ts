@@ -6,10 +6,10 @@ import { Recipe } from './recipe.entity';
 
 @Entity({ name: 'ingredient_recipe' })
 export class IngredientRecipe extends Base {
-  @ManyToOne(() => Ingredient, (ingredient) => ingredient.recipe)
+  @ManyToOne(() => Ingredient, (ingredient) => ingredient.recipes)
   ingredient: Ingredient;
 
-  @ManyToOne(() => Recipe, (recipe) => recipe.ingredient)
+  @ManyToOne(() => Recipe, (recipe) => recipe.ingredient, { eager: true })
   recipe: Recipe;
 
   @Column({ name: 'quantity' })
@@ -17,4 +17,8 @@ export class IngredientRecipe extends Base {
 
   @Column({ name: 'unit', enum: Units, type: 'enum' })
   unit: Units;
+
+  get userId() {
+    return this.recipe.userId;
+  }
 }

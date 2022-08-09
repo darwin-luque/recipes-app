@@ -12,7 +12,7 @@ export class Review extends Base {
   @Column({ name: 'body' })
   body: string;
 
-  @ManyToOne(() => User, (user) => user.reviews)
+  @ManyToOne(() => User, (user) => user.reviews, { eager: true })
   user: User;
 
   @ManyToOne(() => Recipe, (recipe) => recipe.reviews)
@@ -20,4 +20,8 @@ export class Review extends Base {
 
   @OneToMany(() => Reply, (reply) => reply.review)
   replies: Review[];
+
+  get userId(): string {
+    return this.user.id;
+  }
 }

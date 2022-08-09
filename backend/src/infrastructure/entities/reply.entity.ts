@@ -8,9 +8,13 @@ export class Reply extends Base {
   @Column({ name: 'body' })
   body: string;
 
-  @ManyToOne(() => User, (user) => user.replies)
+  @ManyToOne(() => User, (user) => user.replies, { eager: true })
   user: User;
 
   @ManyToOne(() => Review, (review) => review.replies)
   review: Review;
+
+  get userId(): string {
+    return this.user.id;
+  }
 }

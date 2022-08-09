@@ -7,7 +7,7 @@ import {
 
 export class Base extends AggregateRoot {
   @PrimaryGeneratedColumn('uuid', { name: 'id' })
-  id: number;
+  id: string;
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;

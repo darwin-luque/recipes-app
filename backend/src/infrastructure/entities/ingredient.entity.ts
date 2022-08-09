@@ -12,7 +12,7 @@ export class Ingredient extends Base {
     () => IngredientRecipe,
     (ingredientRecipe) => ingredientRecipe.ingredient,
   )
-  recipe: IngredientRecipe;
+  recipes: IngredientRecipe[];
 
   @ManyToOne(
     () => IngredientType,
