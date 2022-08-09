@@ -1,5 +1,7 @@
 import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
+import { JwtService } from '@nestjs/jwt';
+import { Request } from 'express';
 import {
   CaslAbilityFactory,
   AppAbility,
@@ -14,6 +16,7 @@ export class PoliciesGuard implements CanActivate {
   constructor(
     private reflector: Reflector,
     private caslAbilityFactory: CaslAbilityFactory,
+    private jwtService: JwtService,
   ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
@@ -23,8 +26,16 @@ export class PoliciesGuard implements CanActivate {
         context.getHandler(),
       ) || [];
 
-    const { user } = context.switchToHttp().getRequest();
-    const ability = this.caslAbilityFactory.createForUser(user);
+    const { headers } = context.switchToHttp().getRequest() as Request;
+    const token = headers['authorization']?.replace('Bearer ', '');
+    const payload = this.jwtService.decode(token ?? '');
+
+    if (!payload) {
+      return false;
+    }
+    const ability = this.caslAbilityFactory.createForUser(
+      payload as TokenPayload,
+    );
 
     return policyHandlers.every((handler) =>
       this.execPolicyHandler(handler, ability),
