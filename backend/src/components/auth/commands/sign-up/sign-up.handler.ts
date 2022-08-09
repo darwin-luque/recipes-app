@@ -34,7 +34,7 @@ export class SignUpHandler implements ICommandHandler<SignUpCommand> {
       audience: tokenPayload.aud,
       issuer: tokenPayload.iss,
       subject: tokenPayload.sub,
-      expiresIn: tokenPayload.exp,
+      expiresIn: tokenPayload.exp - tokenPayload.iat,
       algorithm: tokenPayload.alg,
       secret: process.env.JWT_TOKEN_SECRET,
     });
