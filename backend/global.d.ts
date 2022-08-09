@@ -1,7 +1,7 @@
 import { UserRole } from './src/infrastructure/entities/user.entity';
 
 declare global {
-  interface IDTokenPayload {
+  interface TokenPayload {
     sub: string;
     iss: string;
     aud: string;
