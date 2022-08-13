@@ -26,13 +26,6 @@ services:
       - '3002:3000'
     volumes:
       - ./backend:/app/backend
-    environment:
-      NODE_ENV: prod
-      REDIS_HOST: redis
-      DB_HOST: db
-      DB_USER: test
-      DB_PASSWORD: test
-      DB_DATABASE: test
     depends_on:
       - db
       - redis
