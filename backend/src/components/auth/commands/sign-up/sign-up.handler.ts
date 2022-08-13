@@ -1,7 +1,7 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import bcrypt from 'bcrypt';
+import * as bcrypt from 'bcryptjs';
 import { SignUpCommand } from './sign-up.command';
 import {
   User,
@@ -9,6 +9,7 @@ import {
 } from '../../../../infrastructure/entities/user.entity';
 import { dumpTokenPayload } from '../../auth.helpers';
 import { JwtService } from '@nestjs/jwt';
+import { jwtconfig } from '../../../../config/auth/jwt.config';
 
 @CommandHandler(SignUpCommand)
 export class SignUpHandler implements ICommandHandler<SignUpCommand> {
@@ -30,14 +31,7 @@ export class SignUpHandler implements ICommandHandler<SignUpCommand> {
     );
 
     const tokenPayload = dumpTokenPayload(user);
-    const token = await this.jwtService.signAsync(tokenPayload, {
-      audience: tokenPayload.aud,
-      issuer: tokenPayload.iss,
-      subject: tokenPayload.sub,
-      expiresIn: tokenPayload.exp - tokenPayload.iat,
-      algorithm: tokenPayload.alg,
-      secret: process.env.JWT_TOKEN_SECRET,
-    });
+    const token = await this.jwtService.signAsync(tokenPayload);
 
     return { user, token };
   }
