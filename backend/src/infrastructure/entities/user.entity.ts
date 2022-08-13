@@ -12,13 +12,13 @@ export enum UserRole {
 
 @Entity({ name: 'user' })
 export class User extends Base {
-  @Column({ name: 'email' })
+  @Column({ name: 'email', unique: true })
   email: string;
 
   @Column({ name: 'password' })
   password: string;
 
-  @Column({ name: 'username' })
+  @Column({ name: 'username', unique: true })
   username: string;
 
   @Column({ name: 'first_name' })
