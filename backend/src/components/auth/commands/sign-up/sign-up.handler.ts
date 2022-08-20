@@ -9,7 +9,7 @@ import {
 } from '../../../../infrastructure/entities/user.entity';
 import { dumpTokenPayload } from '../../auth.helpers';
 import { JwtService } from '@nestjs/jwt';
-import { jwtconfig } from '../../../../config/auth/jwt.config';
+import { UserToken } from '../../auth.types';
 
 @CommandHandler(SignUpCommand)
 export class SignUpHandler implements ICommandHandler<SignUpCommand> {
@@ -18,9 +18,7 @@ export class SignUpHandler implements ICommandHandler<SignUpCommand> {
     private readonly jwtService: JwtService,
   ) {}
 
-  async execute(
-    command: SignUpCommand,
-  ): Promise<{ user: User; token: string }> {
+  async execute(command: SignUpCommand): Promise<UserToken> {
     const hashedPassword = await bcrypt.hash(command.data.password, 10);
     const user = await this.userRepository.save(
       this.userRepository.create({
