@@ -1,13 +1,10 @@
 import { ExecutionContext, Injectable } from '@nestjs/common';
-import { AuthGuard as PassportAuthGuard } from '@nestjs/passport';
 import { Reflector } from '@nestjs/core';
 import { IS_PUBLIC_KEY } from '../decorators/public.decorator';
 
 @Injectable()
-export class AuthGuard extends PassportAuthGuard('jwt') {
-  constructor(private reflector: Reflector) {
-    super();
-  }
+export class AuthGuard {
+  constructor(private reflector: Reflector) {}
 
   canActivate(context: ExecutionContext) {
     const isPublic = this.reflector.getAllAndOverride<boolean>(IS_PUBLIC_KEY, [
@@ -17,6 +14,6 @@ export class AuthGuard extends PassportAuthGuard('jwt') {
     if (isPublic) {
       return true;
     }
-    return super.canActivate(context);
+    return !!(context.switchToHttp().getRequest() as ExpressRequest).user;
   }
 }
