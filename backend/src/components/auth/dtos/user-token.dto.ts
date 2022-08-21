@@ -3,6 +3,7 @@ import { UserDto } from './user.dto';
 
 export class UserTokenDto {
   @Type(() => UserDto)
+  @Expose()
   user: UserDto;
 
   @Expose()
