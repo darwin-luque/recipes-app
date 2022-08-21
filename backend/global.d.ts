@@ -1,5 +1,6 @@
-import type { UserRole } from './src/infrastructure/entities/user.entity';
+import type { User, UserRole } from './src/infrastructure/entities/user.entity';
 import type { Algorithm } from 'jsonwebtoken';
+import { Request } from 'express';
 
 declare global {
   interface TokenPayload {
@@ -14,5 +15,9 @@ declare global {
     email: string;
     given_name: string;
     family_name: string;
+  }
+
+  interface ExpressRequest extends Request {
+    user?: User | null;
   }
 }
